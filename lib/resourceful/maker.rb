@@ -11,14 +11,14 @@ module Resourceful
     def self.extended(base)
       base.class_attribute :resourceful_callbacks
       base.class_attribute :resourceful_responses
-      base.class_attribute :parents
+      base.class_attribute :resource_parents
       base.class_attribute :shallow_parent
       base.class_attribute :model_namespace
       base.class_attribute :made_resourceful
       
       base.resourceful_callbacks = {}
       base.resourceful_responses = {}
-      base.parents               = []
+      base.resource_parents      = []
       base.model_namespace       = nil
       base.made_resourceful      = false
     end

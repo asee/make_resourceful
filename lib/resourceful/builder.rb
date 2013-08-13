@@ -26,7 +26,7 @@ module Resourceful
       @callbacks        = {:before => {}, :after => {}}
       @responses        = {}
       @publish          = {}
-      @parents          = []
+      @resource_parents = []
       @shallow_parent   = nil
       @custom_member_actions = []
       @custom_collection_actions = []
@@ -61,7 +61,7 @@ module Resourceful
       kontroller.resourceful_responses = merged_responses
       kontroller.made_resourceful = true
 
-      kontroller.parents = @parents
+      kontroller.resource_parents = @resource_parents
       kontroller.shallow_parent = @shallow_parent
       kontroller.model_namespace = @model_namespace
       kontroller.before_filter :load_object, :only => (@ok_actions & SINGULAR_PRELOADED_ACTIONS) + @custom_member_actions
@@ -363,10 +363,10 @@ module Resourceful
     #
     def belongs_to(*parents)
       options = parents.extract_options!
-      @parents = parents.map(&:to_s)
+      @resource_parents = parents.map(&:to_s)
       if options[:shallow]
         options[:shallow] = options[:shallow].to_s
-        raise ArgumentError, ":shallow needs the name of a parent resource" unless @parents.include? options[:shallow]
+        raise ArgumentError, ":shallow needs the name of a parent resource" unless @resource_parents.include? options[:shallow]
         @shallow_parent = options[:shallow]
       end
     end
