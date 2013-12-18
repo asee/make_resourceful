@@ -15,7 +15,7 @@ module Resourceful
     module Actions
       # GET /foos
       def index
-        #load_objects
+        load_objects
         before :index
         response_for :index
       end
