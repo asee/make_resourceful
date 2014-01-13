@@ -44,6 +44,8 @@ module Resourceful
           after :create_fails
           response_for :create_fails
         end
+      rescue
+        response_for :create_fails
       end
 
       # PUT /foos/12
@@ -67,6 +69,8 @@ module Resourceful
           after :update_fails
           response_for :update_fails
         end
+      rescue
+        response_for :update_fails
       end
 
       # GET /foos/new
