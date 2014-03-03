@@ -22,8 +22,7 @@ module Resourceful
 
       # GET /foos/12
       def show
-        # NOTE - Moved this call to a more generic place
-        #load_object
+        load_object
         before :show
         response_for :show
       rescue
@@ -48,7 +47,7 @@ module Resourceful
 
       # PUT /foos/12
       def update
-        #load_object
+        load_object
         before :update
         
         begin
@@ -79,14 +78,14 @@ module Resourceful
 
       # GET /foos/12/edit
       def edit
-        #load_object
+        load_object
         before :edit
         response_for :edit
       end
 
       # DELETE /foos/12
       def destroy
-        #load_object
+        load_object
         before :destroy
         if current_object.destroy
           after :destroy
