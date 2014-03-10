@@ -66,7 +66,7 @@ module Resourceful
       kontroller.model_namespace = @model_namespace
       kontroller.before_filter :load_object, :only => @custom_member_actions
       kontroller.before_filter :load_objects, :only => @custom_collection_actions
-      kontroller.before_filter :load_parent_object, :only => @custom_member_actions + @custom_collection_actions
+      kontroller.before_filter :load_parent_object, :only => @ok_actions + @custom_member_actions + @custom_collection_actions
     end
 
     # :call-seq:
