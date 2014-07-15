@@ -12,6 +12,6 @@ HAML_GEMSPEC = Gem::Specification.new do |spec|
 
   spec.executables = []
   spec.files = Dir['lib/**/*', 'Rakefile', "Readme.rdoc", "VERSION"]
-  spec.homepage = 'http://github.com/hcatlin/make_resourceful'
+  spec.homepage = 'http://github.com/asee/make_resourceful'
   spec.test_files = Dir['spec/**/*_spec.rb']
 end
