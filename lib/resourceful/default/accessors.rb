@@ -185,6 +185,7 @@ module Resourceful
       def object_parameters
         params[namespaced_model_name.underscore.tr('/', '_')]
       end
+      alias :object_params :object_parameters
 
       # Returns a list of the names of all the potential parents of the current model.
       # For a non-nested controller, this is <tt>[]</tt>.
