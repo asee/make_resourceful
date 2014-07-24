@@ -112,7 +112,7 @@ describe Resourceful::Default::Accessors, "#build_object with a #build-able mode
   before :each do
     mock_controller Resourceful::Default::Accessors
     @params = {:name => "Bob", :password => "hideously insecure"}
-    @controller.stubs(:object_parameters).returns(@params)
+    @controller.stubs(:object_params).returns(@params)
 
     @object = stub
     @model = stub
@@ -121,7 +121,7 @@ describe Resourceful::Default::Accessors, "#build_object with a #build-able mode
     @model.stubs(:build).returns(@object)
   end
 
-  it "should return a new object built with current_model from the object parameters" do
+  it "should return a new object built with current_model from the object params" do
     @model.expects(:build).with(@params).returns(@object)
     @controller.build_object.should == @object
   end
@@ -137,7 +137,7 @@ describe Resourceful::Default::Accessors, "#build_object with a non-#build-able 
   before :each do
     mock_controller Resourceful::Default::Accessors
     @params = {:name => "Bob", :password => "hideously insecure"}
-    @controller.stubs(:object_parameters).returns(@params)
+    @controller.stubs(:object_params).returns(@params)
 
     @controller.stubs(:singular?).returns(false)
     @controller.stubs(:parent?).returns(false)
@@ -149,7 +149,7 @@ describe Resourceful::Default::Accessors, "#build_object with a non-#build-able 
     @model.stubs(:new).returns(@object)
   end
 
-  it "should return a new instance of the current_model built with the object parameters" do
+  it "should return a new instance of the current_model built with the object params" do
     @model.expects(:new).with(@params).returns(@object)
     @controller.build_object.should == @object
   end
@@ -230,7 +230,7 @@ describe Resourceful::Default::Accessors, "#current_model for a plural controlle
   end
 end
 
-describe Resourceful::Default::Accessors, "#object_parameters" do
+describe Resourceful::Default::Accessors, "#object_params" do
   include ControllerMocks
   before :each do
     mock_controller Resourceful::Default::Accessors
@@ -240,7 +240,7 @@ describe Resourceful::Default::Accessors, "#object_parameters" do
   end
 
   it "should return the element of the params hash with the name of the model" do
-    @controller.object_parameters.should == @params["crazy_user"]
+    @controller.object_params.should == @params["crazy_user"]
   end
 end
 
@@ -375,7 +375,7 @@ describe Resourceful::Default::Accessors, " for a singular controller with a par
     @controller.stubs(:parent_name).returns('person')
     @controller.stubs(:parent?).returns(true)
 
-    @controller.stubs(:object_parameters).returns :thinginess => 12, :bacon => true
+    @controller.stubs(:object_params).returns :thinginess => 12, :bacon => true
   end
 
   it "should set assign the parent's id to a newly built object" do

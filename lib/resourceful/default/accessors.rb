@@ -107,7 +107,7 @@ module Resourceful
       end
 
       # Creates a new object of the type of the current model
-      # with the current object's parameters.
+      # with the current object's params.
       # +current_object+ then returns this object for this action
       # instead of looking up a new object.
       #
@@ -123,9 +123,9 @@ module Resourceful
       #
       def build_object
         @current_object = if current_model.respond_to? :build
-          current_model.build(object_parameters)
+          current_model.build(object_params)
         else
-          current_model.new(object_parameters).tap do |obj|
+          current_model.new(object_params).tap do |obj|
             if singular? && parent?
               obj.send("#{parent_name}_id=", parent_object.id)
               obj.send("#{parent_name}_type=", parent_object.class.to_s) if polymorphic_parent?
@@ -178,14 +178,19 @@ module Resourceful
         end
       end
 
-      # Returns the hash passed as HTTP parameters
+      # Returns the hash passed as HTTP params
       # that defines the new (or updated) attributes
       # of the current object.
       # This is only meaningful for +create+ or +update+.
-      def object_parameters
-        params[namespaced_model_name.underscore.tr('/', '_')]
+      def object_params
+        # revert to deprecated object_parameters if needed
+        if defined? object_parameters
+          ActiveSupport::Deprecation.warn "make_resourceful now uses object_params to determine allowed params rather than object_parameters; please rename the method in your controller"
+          object_parameters
+        else
+          params[namespaced_model_name.underscore.tr('/', '_')]
+        end
       end
-      alias :object_params :object_parameters
 
       # Returns a list of the names of all the potential parents of the current model.
       # For a non-nested controller, this is <tt>[]</tt>.

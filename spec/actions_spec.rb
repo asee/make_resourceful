@@ -61,7 +61,7 @@ describe Resourceful::Default::Actions, " successful create action" do
 
   after(:each) { @controller.create }
 
-  it "should build the object from the POSTed parameters" do
+  it "should build the object from the POSTed params" do
     @controller.expects(:build_object)
   end
 
@@ -119,7 +119,7 @@ describe Resourceful::Default::Actions, " successful update action" do
   include ControllerMocks
   before :each do
     mock_controller Resourceful::Default::Actions
-    [:load_object, :before, :after, :object_parameters,
+    [:load_object, :before, :after, :object_params,
      :save_succeeded!, :response_for].each(&@controller.method(:stubs))
     @object = stub :update_attributes => true
     @controller.stubs(:current_object).returns(@object)
@@ -136,7 +136,7 @@ describe Resourceful::Default::Actions, " successful update action" do
   end
 
   it "should try to update the object with the POSTed attributes" do
-    @controller.expects(:object_parameters).returns(:params => "stuff")
+    @controller.expects(:object_params).returns(:params => "stuff")
     @object.expects(:update_attributes).with(:params => "stuff").returns(true)
   end
 
@@ -157,7 +157,7 @@ describe Resourceful::Default::Actions, " unsuccessful update action" do
   include ControllerMocks
   before :each do
     mock_controller Resourceful::Default::Actions
-    [:load_object, :before, :after, :object_parameters,
+    [:load_object, :before, :after, :object_params,
      :save_failed!, :response_for].each(&@controller.method(:stubs))
     @object = stub :update_attributes => false
     @controller.stubs(:current_object).returns(@object)
@@ -182,7 +182,7 @@ describe Resourceful::Default::Actions, " unsuccessful update action because of 
   include ControllerMocks
   before :each do
     mock_controller Resourceful::Default::Actions
-    [:load_object, :before, :after, :object_parameters,
+    [:load_object, :before, :after, :object_params,
      :save_failed!, :response_for].each(&@controller.method(:stubs))
     @object = stub_model("Thing")
     @object.stubs(:update_attributes).raises(ActiveRecord::StaleObjectError)
@@ -215,7 +215,7 @@ describe Resourceful::Default::Actions, " new action" do
 
   after(:each) { @controller.new }
 
-  it "should build the object from the POSTed parameters" do
+  it "should build the object from the POSTed params" do
     @controller.expects(:build_object)
   end
 

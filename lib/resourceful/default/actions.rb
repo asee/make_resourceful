@@ -51,7 +51,7 @@ module Resourceful
         before :update
         
         begin
-          result = current_object.update_attributes object_parameters
+          result = current_object.update_attributes object_params
         rescue ActiveRecord::StaleObjectError
           current_object.reload
           result = false
