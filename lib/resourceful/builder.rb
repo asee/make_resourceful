@@ -54,8 +54,14 @@ module Resourceful
       kontroller.hidden_actions.reject! &@ok_actions.method(:include?)
       kontroller.send :include, @action_module
       
-      merged_callbacks = kontroller.resourceful_callbacks.merge @callbacks
       merged_responses = kontroller.resourceful_responses.merge @responses
+
+      # merge in callbacks one level deeper than before/after
+      merged_callbacks = {}
+      @callbacks.keys.each do |type|
+        kontroller.resourceful_callbacks[type] ||= {}
+        merged_callbacks[type] = kontroller.resourceful_callbacks[type].merge(@callbacks[type])
+      end
       
       kontroller.resourceful_callbacks = merged_callbacks
       kontroller.resourceful_responses = merged_responses
