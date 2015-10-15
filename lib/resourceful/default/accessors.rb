@@ -269,8 +269,8 @@ module Resourceful
       def parent_name
         return @parent_name if defined?(@parent_name)
         @parent_name = parent_names.find { |name| params["#{name}_id"] }
-        if @parent_name.nil?
-          # get any polymorphic parents through :as association inspection
+        if @parent_name.nil? && parent_names.any?
+          # get any polymorphic parents through :as association inspection, but only if only if it was speciried
           names = params.keys.inject({}) do |hsh, key|
             hsh[key] = key.chomp("_id") if key.to_s =~ /_id$/
             hsh
